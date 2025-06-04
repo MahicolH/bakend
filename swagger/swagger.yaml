@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: Antiguedades API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /antiguedades:
+    get:
+      summary: Obtener todas las antigüedades
+      responses:
+        '200':
+          description: Lista de antigüedades
+    post:
+      summary: Crear una nueva antigüedad
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Antiguedad'
+      responses:
+        '201':
+          description: Antigüedad creada
+  /antiguedades/{id}:
+    get:
+      summary: Obtener una antigüedad por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Antigüedad encontrada
+        '404':
+          description: No encontrada
+    put:
+      summary: Actualizar una antigüedad
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Antiguedad'
+      responses:
+        '200':
+          description: Antigüedad actualizada
+        '404':
+          description: No encontrada
+    delete:
+      summary: Eliminar una antigüedad
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Antigüedad eliminada
+        '404':
+          description: No encontrada
+components:
+  schemas:
+    Antiguedad:
+      type: object
+      properties:
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        año:
+          type: integer
+        valor:
+          type: number
+      required:
+        - nombre
+        - descripcion
+        - año
+        - valor
